@@ -1,6 +1,8 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const forecast = require('./utils/forecast')
+const geocode = require('./utils/geocode')
 
 const app = express()
 const indexPath = path.join(__dirname, '../public')
@@ -17,6 +19,35 @@ app.get('', (req, res) => {
   res.render("index", {
     title: 'Home'
   })
+})
+
+app.get('/weather', (req, res) => {
+  if(!req.query.address) {
+    return res.render("404", {
+      error: "Address was not specified", 
+      title: "Error"
+    })
+  }
+
+  geocode(req.query.address, (error, {lat, long}) => {
+    if(error) {
+      return res.send({
+        error
+      })
+    }
+    forecast(long, lat, (errorForecast, data) => {
+      if(errorForecast) {
+        return res.send({
+          errorForecast
+        })
+      }
+      res.send({
+        address: req.query.address,
+        data
+      })
+    })
+  })
+
 })
 
 app.get('/help', (req, res) => {
