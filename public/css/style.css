@@ -9,10 +9,19 @@ body {
 header {
   background-color: #5a6ff2;
   color: #fff;
-  padding: 10px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-header a {
+header .navigation-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30vw;
+}
+
+header .navigation-buttons a {
   color: #fff;
   text-decoration: none;
   margin-right: 10px;
@@ -20,11 +29,14 @@ header a {
 
 /* Estilos del cuerpo */
 main {
+  display: flex;
+  justify-content: center;
   padding: 20px;
+  margin: 20px;
 }
 
 h1 {
-  margin: 0 0 20px 0;
+  margin: 10px 0 10px 0;
 }
 
 h3 {
